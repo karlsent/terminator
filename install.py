@@ -715,14 +715,16 @@ def main():
         cfg = collect_config()
         save_config(cfg)
 
-    # --- nginx + hosts ---
+    # --- nginx ---
     try:
         setup_nginx(cfg)
-        setup_hosts()
-        steps_ok.append("nginx конфиг + /etc/hosts")
+        steps_ok.append("nginx конфиг")
     except Exception as e:
         steps_warn.append(f"nginx: {e}")
         warn(f"Настройте nginx вручную: {e}")
+
+    # --- /etc/hosts ---
+    setup_hosts()
 
     # --- Автозапуск ---
     try:
