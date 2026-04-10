@@ -611,8 +611,7 @@ def print_summary(cfg, steps_ok, steps_warn):
     domain = cfg.get("domain", DOMAIN)
 
     print("\n" + "═" * 54)
-    print(_color("  ✅  Терминатор Cursor установлен!", "32"))
-    print(f"  http://{domain}")
+    print(_color("  ✅  Терминатор установлен!", "32"))
     print("═" * 54)
     print()
 
@@ -624,8 +623,12 @@ def print_summary(cfg, steps_ok, steps_warn):
             print(_color(f"  ⚠️  {s}", "33"))
 
     print()
+    print("  Открыть в браузере:")
+    print(_color(f"  👉  http://localhost:{port}", "36"))
+    print(_color(f"  👉  http://{domain}  (если настроен nginx + /etc/hosts)", "36"))
+    print()
     print("  Следующие шаги:")
-    print(f"  1. Откройте http://{domain}")
+    print(f"  1. Откройте http://localhost:{port} или http://{domain}")
     print("  2. Вкладка ⚙️ Настройки — проверьте пути")
 
     if not which("yc"):
