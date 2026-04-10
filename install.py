@@ -122,7 +122,13 @@ def install_flask():
         return
     except ImportError:
         pass
-    run([sys.executable, "-m", "pip", "install", "flask", "--quiet"])
+    result = run([sys.executable, "-m", "pip", "install", "flask", "--quiet"],
+                 check=False, capture=True)
+    if result.returncode != 0 and "externally-managed-environment" in result.stderr:
+        run([sys.executable, "-m", "pip", "install", "flask", "--quiet",
+             "--break-system-packages", "--ignore-installed"])
+    elif result.returncode != 0:
+        raise RuntimeError(result.stderr.strip())
     ok("Flask установлен")
 
 
