@@ -135,7 +135,7 @@ unzip -o "{{ATTACHMENTS_DIR}}/{{TASK_ID}}_files.zip" \
 
 Для каждой задачи:
 ```bash
-ls "{{OBSIDIAN_TASKS_DIR}}/" | grep "^<ID>"
+ls "{{NOTES_DIR}}/" | grep "^<ID>"
 ```
 
 **Если файл найден** — задача ВЕРНУЛАСЬ В РАБОТУ:
@@ -149,7 +149,7 @@ ls "{{OBSIDIAN_TASKS_DIR}}/" | grep "^<ID>"
 При нескольких задачах создаётся **один общий файл** (заполнишь в Шаге 7):
 
 ```
-{{OBSIDIAN_TASKS_DIR}}/{{TASK_ID}} - <ОБЩИЙ_ЗАГОЛОВОК>.md
+{{NOTES_DIR}}/{{TASK_ID}} - <ОБЩИЙ_ЗАГОЛОВОК>.md
 ```
 
 где `{{TASK_ID}}` — первый ID из списка, `<ОБЩИЙ_ЗАГОЛОВОК>` — суть всего пакета задач.
@@ -285,7 +285,7 @@ git commit -m "[{{TASK_ID}}] <TITLE>"
 
 ## Шаг 7 — Заполнить Obsidian файл
 
-Файл: `{{OBSIDIAN_TASKS_DIR}}/{{TASK_ID}} - <TITLE>.md`
+Файл: `{{NOTES_DIR}}/{{TASK_ID}} - <TITLE>.md`
 
 При нескольких задачах — один файл для всего пакета. В заголовке перечисли все ID: `# [ID1, ID2, ID3] Общий заголовок`.
 
@@ -341,7 +341,7 @@ git commit -m "[{{TASK_ID}}] <TITLE>"
 Тип: <тип>
 Ветка: develop_<короткое_имя>
 Сделано: <одна строка — что именно выполнено>
-Obsidian: {{OBSIDIAN_TASKS_DIR}}/<ID> - <TITLE>.md
+Заметка: {{NOTES_DIR}}/<ID> - <TITLE>.md
 Коммит: [<ID>] <TITLE>  ← (если был коммит)
 ⚠️ <предупреждения если есть>
 ```
@@ -356,7 +356,7 @@ Obsidian: {{OBSIDIAN_TASKS_DIR}}/<ID> - <TITLE>.md
   #ID2: <TITLE2> — <что сделано>
   #ID3: <TITLE3> — <что сделано>
 Коммит: [ID1,ID2,ID3] <Общее описание>
-Obsidian: {{OBSIDIAN_TASKS_DIR}}/<ID1> - <TITLE>.md
+Заметка: {{NOTES_DIR}}/<ID1> - <TITLE>.md
 ⚠️ <предупреждения если есть>
 ```
 

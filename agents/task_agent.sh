@@ -16,8 +16,9 @@ SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 CONFIG_SH="${TERMINATOR_CONFIG_SH:-$HOME/.terminator/task_agent_config.sh}"
 source "$CONFIG_SH"
 
-mkdir -p "$OBSIDIAN_TASKS_DIR/logs"
-LOG_FILE="$OBSIDIAN_TASKS_DIR/logs/${TASK_ID}.log"
+NOTES_DIR="${NOTES_DIR:-$HOME/.terminator/notes}"
+mkdir -p "$NOTES_DIR/logs"
+LOG_FILE="$NOTES_DIR/logs/${TASK_ID}.log"
 
 echo "[$(date '+%Y-%m-%d %H:%M:%S')] Запуск агента для задачи #$TASK_ID" | tee "$LOG_FILE"
 
@@ -30,9 +31,9 @@ PROMPT=$(sed \
     -e "s|{{GIT_REPO}}|$GIT_REPO|g" \
     -e "s|{{KUBE_UPLOAD_SCRIPT}}|$KUBE_UPLOAD_SCRIPT|g" \
     -e "s|{{KUBE_RUN_SCRIPT}}|$KUBE_RUN_SCRIPT|g" \
-    -e "s|{{OBSIDIAN_TASKS_DIR}}|$OBSIDIAN_TASKS_DIR|g" \
-    -e "s|{{ATTACHMENTS_DIR}}|$OBSIDIAN_TASKS_DIR/attachments|g" \
-    -e "s|{{LOGS_DIR}}|$OBSIDIAN_TASKS_DIR/logs|g" \
+    -e "s|{{NOTES_DIR}}|$NOTES_DIR|g" \
+    -e "s|{{ATTACHMENTS_DIR}}|$NOTES_DIR/attachments|g" \
+    -e "s|{{LOGS_DIR}}|$NOTES_DIR/logs|g" \
     -e "s|{{YC_PROFILE}}|$YC_PROFILE|g" \
     "$SCRIPT_DIR/task_agent_prompt.md")
 

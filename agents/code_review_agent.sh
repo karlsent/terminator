@@ -35,8 +35,8 @@ PROMPT=$(sed \
     -e "s|{{RESULTS_DIR}}|$RESULTS_DIR|g" \
     -e "s/{{TIMESTAMP}}/$TIMESTAMP/g" \
     -e "s|{{GIT_REPO}}|$GIT_REPO|g" \
-    -e "s|{{OBSIDIAN_TASKS_DIR}}|$OBSIDIAN_TASKS_DIR|g" \
-    -e "s|{{ATTACHMENTS_DIR}}|$OBSIDIAN_TASKS_DIR/attachments|g" \
+    -e "s|{{NOTES_DIR}}|${NOTES_DIR:-$HOME/.terminator/notes}|g" \
+    -e "s|{{ATTACHMENTS_DIR}}|${NOTES_DIR:-$HOME/.terminator/notes}/attachments|g" \
     -e "s|{{YC_PROFILE}}|$YC_PROFILE|g" \
     "$SCRIPT_DIR/code_review_agent_prompt.md")
 
