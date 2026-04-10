@@ -106,7 +106,7 @@ if [ -z "$REMOTE_PATH" ]; then
     echo "Поиск файла $FILENAME на удаленном сервере..."
     FIRST_POD=$(echo "$POD_LIST" | head -n 1)
 
-    SEARCH_DIRS="/app/www/api/classes /app/www/api/controllers /app/www/api/scripts /app/www/api/cron /app/www/bitrix/modules /app/www/bitrix/components /app/www/bitrix/js /app/www/js"
+    SEARCH_DIRS="${SEARCH_DIRS:-/app/www/api/classes /app/www/api/controllers /app/www/api/scripts /app/www/api/cron /app/www/bitrix/modules /app/www/bitrix/components /app/www/bitrix/js /app/www/js}"
 
     for SEARCH_DIR in $SEARCH_DIRS; do
         echo "  Поиск в $SEARCH_DIR..."

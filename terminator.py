@@ -63,6 +63,7 @@ CONFIG_DEFAULTS = {
     "kube_prod_pod_pattern":  "bitrix-php-prod",
     "kube_upload_script":     os.path.join(CONFIG_DIR, "kube", "upload-to-bitrix-pods.sh"),
     "kube_run_script":        os.path.join(CONFIG_DIR, "kube", "run-bitrix-script.sh"),
+    "search_dirs":            "/app/www/api/classes /app/www/api/controllers /app/www/api/scripts /app/www/api/cron /app/www/bitrix/modules /app/www/bitrix/components /app/www/bitrix/js /app/www/js",
     # Сервер
     "port":                   8765,
     "domain":                 "terminator.agent",
@@ -130,6 +131,7 @@ def _generate_task_agent_config_sh(cfg):
         f'KUBE_UPLOAD_SCRIPT="{cfg.get("kube_upload_script", "")}"',
         f'KUBE_RUN_SCRIPT="{cfg.get("kube_run_script", "")}"',
         f'KUBE_LOGS_DIR="{kube_logs}"',
+        f'SEARCH_DIRS="{cfg.get("search_dirs", "")}"',
     ]
     os.makedirs(CONFIG_DIR, exist_ok=True)
     with open(CONFIG_SH, "w", encoding="utf-8") as f:
@@ -1290,6 +1292,10 @@ td{padding:10px 14px;border-bottom:1px solid var(--border);font-size:13px;vertic
         <label>Скрипт run</label>
         <input type="text" id="s-kube_run_script" value="{{ config.kube_run_script }}">
       </div>
+      <div class="form-group full-width">
+        <label>Директории поиска файлов (search_dirs, через пробел)</label>
+        <input type="text" id="s-search_dirs" value="{{ config.get('search_dirs', '') }}" placeholder="/app/www/api/classes /app/www/api/controllers ...">
+      </div>
     </div>
   </div>
 
@@ -1869,7 +1875,7 @@ const SETTING_KEYS = ['git_repo','scripts_dir','claude_cmd','use_proxy',
   'notes_dir','test_results_dir','code_review_dir',
   'bitrix_rest_url','yc_bin','yc_profile',
   'kube_test_cluster','kube_prod_cluster','kube_test_pod_pattern','kube_prod_pod_pattern',
-  'kube_upload_script','kube_run_script','port','domain'];
+  'kube_upload_script','kube_run_script','search_dirs','port','domain'];
 
 async function saveSettings(e) {
   e.preventDefault();
