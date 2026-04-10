@@ -369,6 +369,7 @@ def collect_config():
         "kube_prod_pod_pattern":  "bitrix-php-prod",
         "kube_upload_script":     os.path.join(TERMINATOR_DIR, "kube/upload-to-bitrix-pods.sh"),
         "kube_run_script":        os.path.join(TERMINATOR_DIR, "kube/run-bitrix-script.sh"),
+        "search_dirs":            "/app/www/api/classes /app/www/api/controllers /app/www/api/scripts /app/www/api/cron /app/www/bitrix/modules /app/www/bitrix/components /app/www/bitrix/js /app/www/js",
         "claude_proxy_cmd":       os.path.join(TERMINATOR_DIR, "claude-proxy.sh"),
         "port":                   SERVICE_PORT,
         "domain":                 DOMAIN,
@@ -413,6 +414,7 @@ def generate_config_sh(cfg):
         f'KUBE_PROD_POD_PATTERN="{cfg.get("kube_prod_pod_pattern", "bitrix-php-prod")}"',
         f'KUBE_UPLOAD_SCRIPT="{cfg.get("kube_upload_script", "")}"',
         f'KUBE_RUN_SCRIPT="{cfg.get("kube_run_script", "")}"',
+        f'SEARCH_DIRS="{cfg.get("search_dirs", "")}"',
     ]
     with open(CONFIG_SH, "w") as f:
         f.write("\n".join(lines) + "\n")
