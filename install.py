@@ -483,21 +483,25 @@ def setup_hosts():
     hosts_path = "/etc/hosts"
     entry = f"127.0.0.1 {DOMAIN}"
 
-    with open(hosts_path) as f:
-        content = f.read()
+    try:
+        with open(hosts_path) as f:
+            content = f.read()
+    except PermissionError:
+        warn(f"Нет доступа к /etc/hosts. Добавьте вручную:")
+        print(f"\n    sudo sh -c 'echo \"{entry}\" >> /etc/hosts'\n")
+        return
 
     if DOMAIN in content:
         ok(f"{DOMAIN} уже в /etc/hosts")
         return
 
-    if IS_MACOS or (IS_LINUX and os.geteuid() == 0):
+    try:
         with open(hosts_path, "a") as f:
             f.write(f"\n{entry}\n")
         ok(f"Добавлено: {entry}")
-    else:
-        # Linux без root — через sudo
-        run(f"echo '{entry}' | sudo tee -a {hosts_path}", sudo=False)
-        ok(f"Добавлено: {entry}")
+    except PermissionError:
+        warn(f"Настройте /etc/hosts вручную:")
+        print(f"\n    sudo sh -c 'echo \"{entry}\" >> /etc/hosts'\n")
 
 
 # ─── Автозапуск ───────────────────────────────────────────────────────────────
